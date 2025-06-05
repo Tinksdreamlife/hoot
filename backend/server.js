@@ -2,6 +2,7 @@ const path = require('path'); // Built into Node
 const express = require('express');
 const logger = require('morgan');
 const app = express();
+const hootsRouter = require("./controllers/hoots")
 
 // Process the secrets/config vars in .env
 require('dotenv').config();
@@ -23,7 +24,7 @@ app.use(require('./middleware/checkToken'));
 
 // API Routes
 app.use('/api/auth', require('./routes/auth'));
-app.use('/api/posts', require('./routes/posts'));
+app.use('/api/hoots', hootsRouter);
 
 
 // Use a "catch-all" route to deliver the frontend's production index.html
