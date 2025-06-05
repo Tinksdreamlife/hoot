@@ -15,4 +15,10 @@ router.get('/', hootsCtrl.index);
 // POST /api/hoots (CREATE action)
 router.post('/', hootsCtrl.create);
 
+// GET /api/hoots/:hootId
+router.get('/:hootId', hootsCtrl.index)
+
+// PUT /hoots/:hootId
+
+
 module.exports = router;

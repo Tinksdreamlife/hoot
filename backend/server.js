@@ -3,6 +3,7 @@ const express = require('express');
 const logger = require('morgan');
 const app = express();
 const hootsRouter = require("./controllers/hoots")
+const authRoutes = require('./routes/auth')
 
 // Process the secrets/config vars in .env
 require('dotenv').config();
