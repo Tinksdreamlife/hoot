@@ -18,7 +18,11 @@ router.post('/', hootsCtrl.create);
 // GET /api/hoots/:hootId
 router.get('/:hootId', hootsCtrl.index)
 
-// PUT /hoots/:hootId
 
+// PUT /hoots/:hootId
+router.put('/:hootId', hootsCtrl.index)
+
+//DELETE /hoots/:hootId
+router.delete('/:hootId', hootsCtrl.delete);
 
 module.exports = router;
