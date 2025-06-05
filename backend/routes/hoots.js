@@ -25,4 +25,7 @@ router.put('/:hootId', hootsCtrl.index)
 //DELETE /hoots/:hootId
 router.delete('/:hootId', hootsCtrl.delete);
 
+//POST /hoots/:hootId/comments
+router.post('/hootId/comments', hootsCtrl.post);
+
 module.exports = router;

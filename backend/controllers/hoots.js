@@ -54,15 +54,19 @@ router.get('/', checkToken, async (req, res) => {
 
 // GET /api/hoots/:hootId
 
-
-router.get("/:hootId", checkToken, async (req, res) => {
+router.get('/:hootId', checkToken, async (req, res) => {
   try {
-    const hoot = await Hoot.findById(req.params.hootId).populate("author");
+    // populate author of hoot and comments
+    const hoot = await Hoot.findById(req.params.hootId).populate([
+      'author',
+      'comments.author',
+    ]);
     res.status(200).json(hoot);
   } catch (err) {
     res.status(500).json({ err: err.message });
   }
 });
+
 
 router.put("/:hootId", checkToken, async (req, res) => {
   try {
@@ -106,4 +110,25 @@ router.delete("/:hootId", checkToken, async (req, res) => {
     res.status(500).json({ err: err.message });
   }
 });
+
+
+router.post("/:hootId/comments", checkToken, async (req, res) => {
+  try {
+    req.body.author = req.user._id;
+    const hoot = await Hoot.findById(req.params.hootId);
+    hoot.comments.push(req.body);
+    await hoot.save();
+
+    // Find the newly created comment:
+    const newComment = hoot.comments[hoot.comments.length - 1];
+
+    newComment._doc.author = req.user;
+
+    // Respond with the newComment:
+    res.status(201).json(newComment);
+  } catch (err) {
+    res.status(500).json({ err: err.message });
+  }
+});
+
 
