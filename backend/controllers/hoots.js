@@ -32,11 +32,12 @@ async function create(req, res) {
 router.post('/', checkToken, async (req, res) => {
   try {
     req.body.author = req.user._id;
-    const hoot = await Hoot.create(req.body)
+    const hoot = await Hoot.create(req.body);
+    hoot._doc.author = req.user;
     res.json(hoot);
   } catch (err) {
     console.log(err);
-    res.status(400).json({ message: "Failed to create Hoot" })
+    res.status(500).json({ err: err.message })
   }
 });
 
